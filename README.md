@@ -1,4 +1,4 @@
-# 2022Rocketseat_Ignite_Node_DesafioIII. Desafio: corrigindo o código. Trilha NodeJS da Ignite
+# Desafio: corrigindo o código. Trilha NodeJS da Ignite
 
 # 💻 Sobre o desafio
 
