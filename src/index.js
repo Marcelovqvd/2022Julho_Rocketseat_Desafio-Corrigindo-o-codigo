@@ -30,8 +30,9 @@ app.post("/repositories", (request, response) => {
 
 app.put("/repositories/:id", (request, response) => {
   const { id } = request.params;
+  const { title, url, techs} = request.body
 
-  repositoryIndex = repositories.findIndex(repository => repository.id === id);
+  const repositoryIndex = repositories.findIndex(repository => repository.id === id);
 
   if (repositoryIndex < 0) {
     return response.status(404).json({ error: "Repository not found" });
@@ -39,7 +40,13 @@ app.put("/repositories/:id", (request, response) => {
 
   const repository = { ...repositories[repositoryIndex]};
 
-  repositories[repositoryIndex] = repository;
+  Object.assign(repository, {
+    title,
+    url,
+    techs
+  })
+
+  repositories[repositoryIndex] = repository
 
   return response.json(repository);
 });
@@ -49,13 +56,11 @@ app.delete("/repositories/:id", (request, response) => {
 
   repositoryIndex = repositories.findIndex(repository => repository.id === id);
 
-  if (repositoryIndex > 0) {
+  if (repositoryIndex < 0) {
     return response.status(404).json({ error: "Repository not found" });
   }
-
-  const repository = { ...repositories[repositoryIndex]};
-
-  repositories.splice(repository, 1);
+  
+  repositories.splice(repositoryIndex, 1);
 
   return response.status(204).send();
 });
